@@ -38,7 +38,7 @@ public class UsuarioController {
                 .status(HttpStatus.OK)
                 .body(usuarioRepository.findAll());
     }
-    @GetMapping("/{idUsuario}")
+    @GetMapping("/api/v1/usuarios/{idUsuario}")
     public ResponseEntity<Object> getUsuario(@PathVariable(value = "idUsuario") Integer idUsuario) {
         Optional<UsuarioModel> usuarioModel = usuarioRepository.findById(idUsuario);
         if (usuarioModel.isEmpty()) {
