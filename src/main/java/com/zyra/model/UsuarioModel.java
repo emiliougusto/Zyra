@@ -10,7 +10,9 @@ import lombok.*;
 @Data
 
 @Entity
-@Table(name = "TB_USUARIO", uniqueConstraints={@UniqueConstraint(columnNames={"DS_EMAIL"})})
+@Table(name = "TB_USUARIO",
+        uniqueConstraints={
+        @UniqueConstraint(columnNames={"DS_EMAIL"})})
 public class UsuarioModel {
 
     @Id
