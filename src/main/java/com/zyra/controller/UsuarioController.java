@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,14 +24,22 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioModel> salvarUsuario(@RequestBody
                                                       @Valid UsuarioDto usuarioDto) {
-        var clienteModel = new UsuarioModel();
-        BeanUtils.copyProperties(usuarioDto, clienteModel);
+        var usuarioModel = new UsuarioModel();
+        BeanUtils.copyProperties(usuarioDto, usuarioModel);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(usuarioRepository.save(clienteModel));
+                .body(usuarioRepository
+                        .save(usuarioModel));
+    }
+    @GetMapping
+    public ResponseEntity<List<UsuarioModel>> listarUsuarios() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(usuarioRepository.findAll());
     }
     @GetMapping("/{idUsuario}")
-    public ResponseEntity<Object> getCliente(@PathVariable(value = "idUsuario") Integer idUsuario) {
+    public ResponseEntity<Object> getUsuario(@PathVariable(value = "idUsuario") Integer idUsuario) {
         Optional<UsuarioModel> usuarioModel = usuarioRepository.findById(idUsuario);
         if (usuarioModel.isEmpty()) {
             return ResponseEntity
