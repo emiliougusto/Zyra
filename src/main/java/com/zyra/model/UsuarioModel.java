@@ -1,16 +1,18 @@
 package com.zyra.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Data
 
 @Entity
-@Table(name = "TB_USUARIO")
+@Table(name = "TB_USUARIO",
+        uniqueConstraints={
+        @UniqueConstraint(columnNames={"DS_EMAIL"})})
 public class UsuarioModel {
 
     @Id
@@ -23,4 +25,6 @@ public class UsuarioModel {
     private String emailUsuario;
     @Column(name = "DS_SENHA")
     private String senhaUsuario;
+    @Column(name = "ROLE_USUARIO")
+    private String roleUsuario;
 }
