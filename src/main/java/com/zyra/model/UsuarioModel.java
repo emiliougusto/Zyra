@@ -17,8 +17,8 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO")
     private Integer idUsuario;
-    @Column(name = "NM_CLIENTE")
-    private String nmCliente;
+    @Column(name = "NM_USUARIO")
+    private String nmUsuario;
     @Column(name = "DS_EMAIL")
     private String emailUsuario;
     @Column(name = "DS_SENHA")
