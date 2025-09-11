@@ -27,7 +27,7 @@ public class UsuarioController {
         BeanUtils.copyProperties(usuarioDto, clienteModel);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(clienteModel);
+                .body(usuarioRepository.save(clienteModel));
     }
     @GetMapping("/{idUsuario}")
     public ResponseEntity<Object> getCliente(@PathVariable(value = "idUsuario") Integer idUsuario) {
