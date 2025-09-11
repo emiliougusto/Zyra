@@ -22,7 +22,7 @@ public class UsuarioModel {
     @Column(name = "NM_USUARIO")
     private String nmUsuario;
     @Column(name = "DS_EMAIL")
-    private String emailUsuario;
+    private String email;
     @Column(name = "DS_SENHA")
     private String senhaUsuario;
     @Column(name = "ROLE_USUARIO")

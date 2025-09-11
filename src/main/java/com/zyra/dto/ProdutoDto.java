@@ -10,9 +10,11 @@ public record ProdutoDto(
         @NotBlank(message = "Não é possível cadastrar produto sem nome")
         @Size(min = 2, max = 100, message = "O nome do produto deve ter entre 2 e 100 caracteres")
         String nmProduto,
+
         @NotBlank(message = "Não é possível cadastrar produto sem descrição")
         @Size(min = 5, max = 500, message = "A descrição do produto deve ter entre 5 e 500 caracteres")
         String dsProduto,
+
         @NotNull(message = "Não é possível cadastrar produto sem preço")
         @DecimalMin(value = "0.01", message = "O valor do produto deve ser maior que 0.01")
         Double vlProduto
