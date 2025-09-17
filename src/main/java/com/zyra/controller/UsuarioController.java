@@ -1,7 +1,6 @@
 package com.zyra.controller;
 
 import com.zyra.dto.UsuarioDto;
-import com.zyra.model.UsuarioModel;
 import com.zyra.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
