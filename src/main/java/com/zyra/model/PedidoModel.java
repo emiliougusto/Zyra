@@ -1,5 +1,6 @@
 package com.zyra.model;
 
+import com.zyra.model.usuario.UsuarioModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
