@@ -16,9 +16,7 @@ public record UsuarioDto(
 
         @NotBlank(message = "Não é possível cadastrar usuário sem senha")
         @Size(min = 6, max = 30, message = "A senha do usuário deve ter entre 6 e 30 caracteres")
-        String senhaUsuario,
+        String senhaUsuario
 
-        @NotBlank(message = "Não é possível cadastrar usuário sem perfil")
-        String roleUsuario
 ) {
 }
