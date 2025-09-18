@@ -8,6 +8,7 @@ import com.zyra.repository.UsuarioRepository;
 import com.zyra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,19 +33,25 @@ public class AuthenticationController {
 
         var token = tokenService.gerarToken((UsuarioModel) auth.getPrincipal() );
 
-        return ResponseEntity.ok(new LoginResponseDto(token));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new LoginResponseDto(token));
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
         if(this.usuarioRepository.findByEmail(data.email()) != null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("Erro: Email já cadastrado!");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senhaUsuario());
         UsuarioModel novoUsuario = new UsuarioModel(data.email(), encryptedPassword, data.roleUsuario());
 
         this.usuarioRepository.save(novoUsuario);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(novoUsuario);
     }
 }
