@@ -22,11 +22,12 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    // Esse método é executado a cada requisição
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recuperarToken(request);
         if (token != null) {
-            var login = tokenService.validateToken(token);
+            var login = tokenService.validarToken(token);
             var usuarioOpt = usuarioRepository.findByEmail(login);
             if (usuarioOpt.isPresent()) {
                 UserDetails usuario = usuarioOpt.get();

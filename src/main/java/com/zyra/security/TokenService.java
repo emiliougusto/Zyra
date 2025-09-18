@@ -31,7 +31,7 @@ public class TokenService {
         }
     }
 
-    public String validateToken(String token) {
+    public String validarToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -44,6 +44,7 @@ public class TokenService {
         }
     }
 
+    // Gera a data de expiração do token (2 horas a partir do momento atual)
     private Instant genExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }

@@ -38,6 +38,7 @@ public class UsuarioModel implements UserDetails {
         this.roleUsuario = roleUsuario;
     }
 
+    // Metodos da interface UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.roleUsuario == RoleUsuario.ADMIN) {

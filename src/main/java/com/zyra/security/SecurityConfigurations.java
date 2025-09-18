@@ -26,9 +26,10 @@ public class SecurityConfigurations {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // definindo as regras de autorização
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/usuarios").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/produtos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/pedidos").hasRole("USER")
@@ -44,6 +45,7 @@ public class SecurityConfigurations {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    // Função para criptografar a senha
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

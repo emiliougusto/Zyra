@@ -41,15 +41,20 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
         if(this.usuarioRepository.findByEmail(data.email()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já cadastrado");
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("Email já cadastrado");
         }
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senhaUsuario());
-        UsuarioModel novoUsuario = new UsuarioModel(data.email(), encryptedPassword, data.roleUsuario());
+
+        // Criptografa a senha antes de salvar
+        String senhaCriptografada = new BCryptPasswordEncoder().encode(data.senhaUsuario());
+
+        UsuarioModel novoUsuario = new UsuarioModel(data.email(), senhaCriptografada, data.roleUsuario());
 
         this.usuarioRepository.save(novoUsuario);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(novoUsuario);
+                .body("Usuário registrado com sucesso");
     }
 }
