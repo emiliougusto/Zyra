@@ -10,6 +10,6 @@ public record PedidoDto(
         LocalDate dataPedido,
         Double totalPedido,
         Integer idUsuario,
-        String emailUsuario
-) {
-}
+        String emailUsuario,
+        List<Integer> produtosIds
+) {}

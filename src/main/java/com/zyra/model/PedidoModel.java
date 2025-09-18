@@ -32,6 +32,7 @@ public class PedidoModel {
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private UsuarioModel usuario;
 
+
     @ManyToMany
     @JoinTable(
             name = "TB_PEDIDO_PRODUTO",

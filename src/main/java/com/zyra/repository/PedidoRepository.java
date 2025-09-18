@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoModel, Integer> {
-
-    @Query("SELECT new com.zyra.dto.PedidoDto(p.idPedido, p.dataPedido, p.totalPedido, u.idUsuario, u.email) FROM PedidoModel p JOIN p.usuario u WHERE p.idPedido = :idPedido")
-    Optional<PedidoDto> findPedidoWithUsuarioById(Integer idPedido);
+    @Query("SELECT new com.zyra.dto.PedidoDto(p.idPedido, p.dataPedido, p.totalPedido, u.idUsuario, u.email, null) " +
+           "FROM PedidoModel p JOIN p.usuario u WHERE p.idPedido = :idPedido")
+    Optional<PedidoDto> findPedidoDtoById(Integer idPedido);
 }
