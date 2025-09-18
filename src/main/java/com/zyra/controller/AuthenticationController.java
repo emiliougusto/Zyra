@@ -40,10 +40,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-        if(this.usuarioRepository.findByEmail(data.email()) != null) {
-            return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body("Erro: Email já cadastrado!");
+        if(this.usuarioRepository.findByEmail(data.email()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email já cadastrado");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.senhaUsuario());
         UsuarioModel novoUsuario = new UsuarioModel(data.email(), encryptedPassword, data.roleUsuario());

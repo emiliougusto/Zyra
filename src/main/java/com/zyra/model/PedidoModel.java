@@ -1,5 +1,6 @@
 package com.zyra.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zyra.model.usuario.UsuarioModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class PedidoModel {
     @Column(name = "ID_PEDIDO")
     private Integer idPedido;
     @Column(name = "DATA_PEDIDO")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataPedido;
     @Column(name = "TOTAL_PEDIDO")
     private Double totalPedido;
@@ -32,9 +34,9 @@ public class PedidoModel {
 
     @ManyToMany
     @JoinTable(
-        name = "TB_PEDIDO_PRODUTO",
-        joinColumns = @JoinColumn(name = "ID_PEDIDO"),
-        inverseJoinColumns = @JoinColumn(name = "ID_PRODUTO")
+            name = "TB_PEDIDO_PRODUTO",
+            joinColumns = @JoinColumn(name = "ID_PEDIDO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_PRODUTO")
     )
     private java.util.List<ProdutoModel> produtos;
 }
