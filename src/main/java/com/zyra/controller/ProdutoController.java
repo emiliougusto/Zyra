@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/produtos")
+@RequestMapping("/api/produtos")
 
 public class ProdutoController {
 
@@ -46,13 +46,5 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
         return ResponseEntity.status(HttpStatus.OK).body(produtoModel.get());
-    }
-
-    @DeleteMapping("{idProduto}")
-    public ResponseEntity<Void> deletarProduto(@PathVariable(value = "idProduto") Integer idProduto) {
-        produtoRepository.deleteById(idProduto);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(null);
     }
 }

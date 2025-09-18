@@ -1,6 +1,5 @@
 package com.zyra.security;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,12 +27,12 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // definindo as regras de autorização
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/usuarios").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/produtos").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/pedidos").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/pedidos/{idPedido}").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/produtos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/pedidos").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/{idPedido}").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -45,7 +44,7 @@ public class SecurityConfigurations {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // Função para criptografar a senha
+    // função para criptografar a senha
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

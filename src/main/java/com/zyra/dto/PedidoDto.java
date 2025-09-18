@@ -11,5 +11,5 @@ public record PedidoDto(
         Double totalPedido,
         Integer idUsuario,
         String emailUsuario,
-        List<Integer> produtosIds
+         List<Integer> produtosIds
 ) {}

@@ -28,11 +28,12 @@ public class PedidoModel {
     @Column(name = "TOTAL_PEDIDO")
     private Double totalPedido;
 
+    // relacionamento muitos para um com usuario
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private UsuarioModel usuario;
 
-
+    // Criação de tabela associativa entre pedido e produto
     @ManyToMany
     @JoinTable(
             name = "TB_PEDIDO_PRODUTO",

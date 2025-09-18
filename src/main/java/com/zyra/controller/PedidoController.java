@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/v1/pedidos")
+@RequestMapping("/api/pedidos")
 public class PedidoController {
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -41,20 +41,24 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A lista de produtos não pode ser vazia.");
         }
 
+        // cria o pedido
         var pedidoModel = new PedidoModel();
         pedidoModel.setDataPedido(pedidoDto.dataPedido());
         pedidoModel.setTotalPedido(pedidoDto.totalPedido());
         pedidoModel.setUsuario(usuarioOpt.get());
         List<ProdutoModel> produtos = produtoRepository.findAllById(pedidoDto.produtosIds());
 
+        // verifica se todos os produtos foram encontrados
         if (produtos.size() != pedidoDto.produtosIds().size()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Um ou mais produtos não foram encontrados.");
         }
 
+        // associa os produtos ao pedido
         pedidoModel.setProdutos(new ArrayList<>(produtos));
 
         var pedidoSalvo = pedidoRepository.save(pedidoModel);
 
+        // resposta da criação do pedido
         var resposta = new PedidoDto(
                 pedidoSalvo.getIdPedido(),
                 pedidoSalvo.getDataPedido(),
@@ -86,7 +90,6 @@ public class PedidoController {
                 pedidoModel.getUsuario().getEmail(),
                 produtosIds
         );
-
         return ResponseEntity.status(HttpStatus.OK).body(pedidoDto);
     }
 }

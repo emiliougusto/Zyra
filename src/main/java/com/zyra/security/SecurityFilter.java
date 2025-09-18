@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+// filtro para cada requisição, verificar se tem token válido
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
@@ -22,7 +23,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    // Esse método é executado a cada requisição
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recuperarToken(request);
