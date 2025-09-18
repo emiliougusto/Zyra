@@ -24,10 +24,12 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<ProdutoModel> salvarProduto(@RequestBody
-                                                          @Valid ProdutoDto produtoDto) {
+                                                      @Valid ProdutoDto produtoDto) {
         var produtoModel = new ProdutoModel();
         BeanUtils.copyProperties(produtoDto, produtoModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(produtoRepository.save(produtoModel));
     }
 
     @GetMapping
@@ -43,7 +45,7 @@ public class ProdutoController {
         if (produtoModel.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado.");
         }
-        return ResponseEntity.ok(produtoModel);
+        return ResponseEntity.status(HttpStatus.OK).body(produtoModel.get());
     }
 
     @DeleteMapping("{idProduto}")

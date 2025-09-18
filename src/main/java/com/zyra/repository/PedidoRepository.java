@@ -1,5 +1,6 @@
 package com.zyra.repository;
 
+import com.zyra.dto.PedidoDto;
 import com.zyra.model.PedidoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoModel, Integer> {
 
-    @Query("SELECT dataPedido, totalPedido  FROM PedidoModel WHERE usuario.idUsuario = :idUsuario")
-    Optional<PedidoModel> findByUsuarioId(Integer idUsuario);
-
-    Optional<PedidoModel> findById(Integer idPedido);
+    @Query("SELECT new com.zyra.dto.PedidoDto(p.idPedido, p.dataPedido, p.totalPedido, u.idUsuario, u.email) FROM PedidoModel p JOIN p.usuario u WHERE p.idPedido = :idPedido")
+    Optional<PedidoDto> findPedidoWithUsuarioById(Integer idPedido);
 }

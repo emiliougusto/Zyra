@@ -7,8 +7,6 @@ import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Value;
 
 public record ProdutoDto(
-        @NotBlank(message = "Não é possível cadastrar produto sem nome")
-        @Size(min = 2, max = 100, message = "O nome do produto deve ter entre 2 e 100 caracteres")
         String nmProduto,
 
         @NotBlank(message = "Não é possível cadastrar produto sem descrição")

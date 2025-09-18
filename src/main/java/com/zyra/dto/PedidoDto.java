@@ -1,16 +1,15 @@
 package com.zyra.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+import java.util.List;
 
 public record PedidoDto(
-        @NotNull(message = "O ID do usuário não pode ser nulo")
-        Integer idUsuario,
-        @NotBlank(message = "A data do pedido não pode ser vazia")
+        Integer idPedido,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
         LocalDate dataPedido,
-        @NotNull(message = "O total do pedido não pode ser nulo")
-        Double totalPedido
+        Double totalPedido,
+        Integer idUsuario,
+        String emailUsuario
 ) {
 }
